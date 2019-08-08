@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>EDFMaker</title>
+    </head>
+    <body>
+    
+        <div class ="container">
+            <h1 class="display-1 text-bold mb-4">Copy Symbol</h1>
+            
+            <h3>1: {{EXCEL_PATH}}</h3>
+            <h3>2: {{EDF_PATH}}</h3>
+            <h5 class="text-gray-soft text-regular">Input Excel and EDF file to copy die info, GND and NC.</h5>
+            <hr class="mb-4">
+
+            <div class = "row">           
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Process log:</span>
+                        <span class="badge badge-secondary badge-pill">{{LOG_NUM}}</span>
+                    </h4>
+                    <div class = "border border-dark rounded" style="overflow: auto ; overflow-x:hidden;  height: 523px; background-color:#f9f9f5;padding:10px; right-padding:0px;">
+                        <span style="word-break: break-all">{{LOG_INFO|linebreaksbr}}</span>
+                    </div>
+                    <hr class="mb-4">
+                    <button class="btn btn-success btn-lg btn-block" type="submit">Start & Ouput .EDF</button>
+                </div>
+                
+                <div class = "col-md-8 order-md-1">
+                    <form class="row" action="" method="POST"> 
+                        <div class = "col-md-6 mb-3"> 
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupFileAddon01">Excel</span>
+                              </div>
+                              <div class="custom-file">
+                                {% csrf_token %}
+                                <input type="file" class="custom-file-input" id="inputGroupFile01" name="excel_path">
+                                <label class="custom-file-label" for="inputGroupFile02">Choose Excel file</label>
+                              </div>
+                            </div>
+                        </div>
+                        <div class = "col-md-6 mb-3"> 
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupFileAddon02">EDF</span>
+                              </div>
+                              <div class="custom-file">
+                                {% csrf_token %}
+                                <input type="file" class="custom-file-input" id="inputGroupFile02" name="edf_path">
+                                <label class="custom-file-label" for="inputGroupFile02">Choose EDF file</label>
+                              </div>
+                            </div>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Upload Excel & EDF File</button>
+                        </div>
+                    </form>  
+                    
+                    <hr class="mb-4">
+
+                    <h4 class="mb-3">Choose place type:</h4>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="same-address">
+                      <label class="custom-control-label" for="same-address">Place GND ?</label>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="save-info">
+                      <label class="custom-control-label" for="save-info">Place NC ?</label>
+                    </div>
+                    
+                    <hr class="mb-4">
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                              <div>
+                                <h6 class="my-0">Number of Cell</h6>
+                                <small class="text-muted">Brief description</small>
+                              </div>
+                              <span class="text-muted">{{CELL_NUM}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                              <div>
+                                <h6 class="my-0">Number of Die</h6>
+                                <small class="text-muted">Brief description</small>
+                              </div>
+                              <span class="text-muted">{{DIE_NUM}}</span>
+                            </li>
+                                 
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                              <div>
+                                <h6 class="my-0">Number of GND</h6>
+                                <small class="text-muted">(num & num/300)</small>
+                              </div>
+                              <span class="text-muted">{{GND_NUM}}/{{GND_GROUP}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                              <div>
+                                <h6 class="my-0">Number of NC</h6>
+                                <small class="text-muted">(num & num/300)</small>
+                              </div>
+                              <span class="text-muted">{{NC_NUM}}/{{NC_GROUP}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                              <span>Total of Package</span>
+                              <strong>{{PKG_NUM}}</strong>
+                            </li>
+                          </ul>
+
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Upload Excel & EDF File</button>
+                </div> 
+            </div>
+            <footer class="my-0 pt-2 text-muted text-center text-small">
+                <p class="mb-1">© 2019 CHPT</p>
+                <ul class="list-inline">
+                  <li class="list-inline-item"><a href="#">Privacy</a></li>
+                  <li class="list-inline-item"><a href="#">Terms</a></li>
+                  <li class="list-inline-item"><a href="#">Support</a></li>
+                </ul>
+            </footer>
+        </div>
+             
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"> </script>
+    <script>bsCustomFileInput.init()</script>
+    </body>
+</html>
